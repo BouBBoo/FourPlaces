@@ -1,16 +1,12 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Storm.Mvvm;
 
 namespace TD2
 {
-    public partial class App : Application
+    public partial class App : MvvmApplication
     {
-        public App()
+        public App() : base(() => new MainPage())
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
