@@ -38,18 +38,22 @@
                 <Label Text="{Binding Description}" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
                 <Button Text="Locate the place" Command="{Binding openMaps}"/>
             </StackLayout>
-            <!--<ListView ItemsSource="{Binding ListComment}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="30">
-                            <StackLayout Margin="5,5,5,5">
-                                <Label Text="{Binding Date}"/>
-                                <Label Text="{Binding Text}"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
+            <StackLayout Padding="10,10,10,10">
+                <ScrollView HeightRequest="250">
+                    <ListView ItemsSource="{Binding Comments}" HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="100">
+                                    <StackLayout Margin="5,5,5,5">
+                                        <Label Text="{Binding Date}"/>
+                                        <Label Text="{Binding Text}"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </StackLayout>
         </FlexLayout>
     </ContentPage.Content>
 </ContentPage>
