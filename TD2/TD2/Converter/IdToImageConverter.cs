@@ -9,9 +9,17 @@ namespace TD2.Converter
         
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int ImageID = (int)value;
+            if(value == null)
+            {
+                return "https://td-api.julienmialon.com/images/1";
+            }
+            else
+            {
+                int ImageID = (int)value;
+
+                return "https://td-api.julienmialon.com/images/" + ImageID;
+            }
             
-            return "https://td-api.julienmialon.com/images/" + ImageID;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

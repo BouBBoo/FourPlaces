@@ -178,33 +178,45 @@ namespace TD2.ViewModels
 
         private async void Submit(object obj)
         {
-            ApiClient apiClient = new ApiClient();
-            int idImage = await SubmitImageAsync(apiClient);
-            try
+            if(Title == " " || Title == null) { await Application.Current.MainPage.DisplayAlert("Error", "Nom du lieu non précisé", "OK"); }
+            else if (Description == " " || Description == null) { await Application.Current.MainPage.DisplayAlert("Error", "Description du lieu non précisée", "OK"); }
+            else if (Image == null || PathToImage == null) { await Application.Current.MainPage.DisplayAlert("Error", "Image du lieu non précisée", "OK"); }
+            else if (Latitude == " " || Latitude == null) { await Application.Current.MainPage.DisplayAlert("Error", "Latitude du lieu non précisée", "OK"); }
+            else if (Longitude == " " || Longitude == null) { await Application.Current.MainPage.DisplayAlert("Error", "Longitude du lieu non précisée", "OK"); }
+            else
             {
-                HttpResponseMessage httpResponse = await apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/places", new CreatePlaceRequest()
+                try { double.Parse(_latitude); } 
+                catch (Exception){ await Application.Current.MainPage.DisplayAlert("Error", "Format de la latitude incorrect", "OK"); }
+                try { double.Parse(_longitude); }
+                catch (Exception) { await Application.Current.MainPage.DisplayAlert("Error", "Format de la longitude incorrect", "OK"); }
+                try
                 {
-                    Title = _title,
-                    Description = _description,
-                    ImageId = idImage,
-                    Latitude = double.Parse(_latitude),
-                    Longitude = double.Parse(_longitude)
-                }, ((LoginResult)Application.Current.Properties["token"]).AccessToken);
-                Response<CreatePlaceRequest> response = await apiClient.ReadFromResponse<Response<CreatePlaceRequest>>(httpResponse);
+                    ApiClient apiClient = new ApiClient();
+                    int idImage = await SubmitImageAsync(apiClient);
+                    HttpResponseMessage httpResponse = await apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/places", new CreatePlaceRequest()
+                    {
+                        Title = _title,
+                        Description = _description,
+                        ImageId = idImage,
+                        Latitude = double.Parse(_latitude),
+                        Longitude = double.Parse(_longitude)
+                    }, ((LoginResult)Application.Current.Properties["token"]).AccessToken);
+                    Response<CreatePlaceRequest> response = await apiClient.ReadFromResponse<Response<CreatePlaceRequest>>(httpResponse);
 
-                if (response.IsSuccess)
-                {
-                    await DependencyService.Get<INavigationService>().PopAsync();
+                    if (response.IsSuccess)
+                    {
+                        await DependencyService.Get<INavigationService>().PopAsync();
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error response", response.ErrorMessage, "OK");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error response", response.ErrorMessage, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error request", e.Message, "OK");
                 }
-            }catch(Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error request", e.Message, "OK");
             }
-            
         }
 
         private async Task<int> SubmitImageAsync(ApiClient apiClient)

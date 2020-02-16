@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:TD2.Converter"
+             mc:Ignorable="d"
+             x:Class="TD2.Views.ProfilView">
+    <ContentPage.Resources>
+        <local:IdToImageConverter x:Key="IdToImageConverter"/>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="add" Order="Primary"  Text="+" Priority="0" Command="{Binding edit}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Image Source="{Binding ImageId, Converter={StaticResource IdToImageConverter}}"/>
+            <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+                <Label Text="Email :" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Entry Text="{Binding Email}" IsEnabled="False" VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+                <Label Text="Prénom :" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Entry Text="{Binding FirstName}" IsEnabled="False" VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+                <Label Text="Nom :" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Entry Text="{Binding LastName}" IsEnabled="False" VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+                <Label Text="Password :" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Entry Text="{Binding LastName}" IsEnabled="False" IsPassword="True" VerticalOptions="Center"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

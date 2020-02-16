@@ -52,26 +52,30 @@ namespace TD2
 
         private async void GoToLogin()
         {
-            ApiClient apiClient = new ApiClient();
-            try {
-
-                HttpResponseMessage httpResponse = await apiClient.Execute(HttpMethod.Post, URL, new LoginRequest() { Email = _login, Password = _password });
-                Response<LoginResult> response = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse);
-                if (response.IsSuccess)
-                {
-                    Application.Current.Properties["token"] = response.Data;
-                    await DependencyService.Get<INavigationService>().PushAsync(new SpotList());
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Erreur", response.ErrorMessage, "ok");
-                }
-            }catch(Exception e)
+            if(LOGIN == " " || LOGIN == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Login non renseigné", "ok"); }
+            else if (PASSWORD == " " || PASSWORD == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Mot de passe non renseigné", "ok"); }
+            else
             {
-                await Application.Current.MainPage.DisplayAlert("Erreur", e.Message, "ok");
+                try
+                {
+                    ApiClient apiClient = new ApiClient();
+                    HttpResponseMessage httpResponse = await apiClient.Execute(HttpMethod.Post, URL, new LoginRequest() { Email = _login, Password = _password });
+                    Response<LoginResult> response = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse);
+                    if (response.IsSuccess)
+                    {
+                        Application.Current.Properties["token"] = response.Data;
+                        await DependencyService.Get<INavigationService>().PushAsync(new SpotList());
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Erreur", response.ErrorMessage, "ok");
+                    }
+                }
+                catch (Exception e)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Erreur", e.Message, "ok");
+                }
             }
-            
-
         }
     }
 }

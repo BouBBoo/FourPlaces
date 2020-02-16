@@ -63,38 +63,43 @@ namespace TD2.ViewModels
 
         private async void Submit(object obj)
         {
-            RegisterRequest registerRequest = new RegisterRequest()
+            if(Email == " " || Email == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Email non précisé", "OK"); }
+            else if (FirstName == " " || FirstName == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Prénom non précisé", "OK"); }
+            else if (LastName == " " || LastName == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Nom non précisé", "OK"); }
+            else if (Password == " " || Password == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Mot de passe non précisé", "OK"); }
+            else
             {
-                Email = Email,
-                FirstName = FirstName,
-                LastName = LastName,
-                Password = Password
-            };
-            ApiClient apiClient = new ApiClient();
-            Debug.WriteLine(Password + " " + FirstName + " " + LastName + " " + Email);
-            try
-            {
+                try
+                {
+                    RegisterRequest registerRequest = new RegisterRequest()
+                    {
+                        Email = Email,
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        Password = Password
+                    };
+                    ApiClient apiClient = new ApiClient();
 
-                HttpResponseMessage httpResponse = 
-                    await apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/register", registerRequest);
-                Response<LoginResult> response = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse);
-                if (response.IsSuccess)
-                {
-                    Application.Current.Properties["token"] = response.Data;
-                    await DependencyService.Get<INavigationService>().PopAsync();
-                    await Application.Current.MainPage.DisplayAlert("Compte créé", "La création du compte a été effectué", "Ok");
-                    await DependencyService.Get<INavigationService>().PushAsync<SpotList>();
+                    HttpResponseMessage httpResponse =
+                        await apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/register", registerRequest);
+                    Response<LoginResult> response = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse);
+                    if (response.IsSuccess)
+                    {
+                        Application.Current.Properties["token"] = response.Data;
+                        await DependencyService.Get<INavigationService>().PopAsync();
+                        await Application.Current.MainPage.DisplayAlert("Compte créé", "La création du compte a été effectué", "Ok");
+                        await DependencyService.Get<INavigationService>().PushAsync<SpotList>();
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Erreur response", response.ErrorMessage, "ok");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Erreur response", response.ErrorMessage, "ok");
+                    await Application.Current.MainPage.DisplayAlert("Erreur request", e.Message, "ok");
                 }
             }
-            catch (Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert("Erreur request", e.Message, "ok");
-            }
-
         }
     }
 }
