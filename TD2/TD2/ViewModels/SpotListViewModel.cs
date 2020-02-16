@@ -18,6 +18,7 @@ namespace TD2.ViewModels
     {
         private readonly string URL = "https://td-api.julienmialon.com";
         public ICommand goToDetail { get; }
+        public ICommand goToAddNewPlace { get; }
         private ObservableCollection<PlaceItemSummary> _listPlaces;
         public ObservableCollection<PlaceItemSummary> ListPlaces
         {
@@ -37,7 +38,13 @@ namespace TD2.ViewModels
         {
             ListPlaces = new ObservableCollection<PlaceItemSummary>();
             goToDetail = new Command<int>(GoToDetailPage);
+            goToAddNewPlace = new Command(GoToAddNewPlace);
             GetPlaces();
+        }
+
+        private async void GoToAddNewPlace(object obj)
+        {
+            await DependencyService.Get<INavigationService>().PushAsync<AddPlaceView>();
         }
 
         public async void GoToDetailPage(int obj)

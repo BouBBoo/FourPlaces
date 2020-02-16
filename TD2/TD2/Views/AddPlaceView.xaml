@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TD2.Views.AddPlaceView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Text="{Binding Title}" Placeholder="Name of the place"/>
+            <Entry Text="{Binding Description}" Placeholder="Description of the place"/>
+            <Image Source="{Binding Image.Source}" HeightRequest="200"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Take photo" Command="{Binding takePicture}"/>
+                <Button Text="Load photo" Command="{Binding loadPicture}"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+                    <Label Text="Latitude" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Latitude}" Placeholder="Latitude" HorizontalOptions="StartAndExpand"/>
+                    <Label Text="Longitude" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Longitude}" Placeholder="Longitude" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <Button Text="Use your Coordinate" Command="{Binding getCoordinate}"/>
+            </StackLayout>
+            <Button Text="Validate" Command="{Binding submit}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

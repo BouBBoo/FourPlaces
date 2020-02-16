@@ -8,14 +8,14 @@
     <ContentPage.Content>
         <StackLayout Margin="5,5,5,5">
             <Label Text="Email:"/>
-            <Entry x:Name="email" Placeholder="example@mail.com"/>
+            <Entry Text="{Binding Email}" x:Name="email" Placeholder="example@mail.com"/>
             <Label Text="Firstname:"/>
-            <Entry x:Name="firstname" Placeholder="Your firstname"/>
+            <Entry Text="{Binding FirstName}" x:Name="firstname" Placeholder="Your firstname"/>
             <Label Text="Lastname:"/>
-            <Entry x:Name="lastname" Placeholder="Your lastname"/>
+            <Entry Text="{Binding LastName}" x:Name="lastname" Placeholder="Your lastname"/>
             <Label Text="Password"/>
-            <Entry x:Name="password" IsPassword="True" Placeholder="Password"/>
-            <Button Text="Create Account"/>
+            <Entry Text="{Binding Password}" x:Name="password" IsPassword="True" Placeholder="Password"/>
+            <Button Text="Create Account" Command="{Binding submit}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

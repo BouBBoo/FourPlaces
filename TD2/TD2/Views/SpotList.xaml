@@ -15,6 +15,9 @@
         <local1:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
         <local1:IdToImageConverter x:Key="IdToImageConverter"/>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="add" Order="Primary"  Text="+" Priority="0" Command="{Binding goToAddNewPlace}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75">
