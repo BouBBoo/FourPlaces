@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TD2.AccountCreation">
+    <ContentPage.Content>
+        <StackLayout Margin="5,5,5,5">
+            <Label Text="Email:"/>
+            <Entry x:Name="email" Placeholder="example@mail.com"/>
+            <Label Text="Firstname:"/>
+            <Entry x:Name="firstname" Placeholder="Your firstname"/>
+            <Label Text="Lastname:"/>
+            <Entry x:Name="lastname" Placeholder="Your lastname"/>
+            <Label Text="Password"/>
+            <Entry x:Name="password" IsPassword="True" Placeholder="Password"/>
+            <Button Text="Create Account"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
