@@ -7,9 +7,7 @@
              x:Class="TD2.Views.PlaceView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding Title}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

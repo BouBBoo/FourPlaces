@@ -3,6 +3,7 @@ using Storm.Mvvm.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -41,16 +42,14 @@ namespace TD2.ViewModels
 
         public async void GoToDetailPage(int obj)
         {
-            PlaceItem placeItem;
             try
             {
                 HttpResponseMessage httpResponse = await apiClient.Execute(HttpMethod.Get, URL + "/places/" + obj);
                 Response<PlaceItem> response = await apiClient.ReadFromResponse<Response<PlaceItem>>(httpResponse);
                 if (response.IsSuccess)
                 {
-                    placeItem = response.Data;
                     await DependencyService.Get<INavigationService>().PushAsync<PlaceView>(new Dictionary<string, object> {
-                        { "placeItem" , placeItem }
+                        { "placeItem" , response.Data }
                     });
                 }
             }

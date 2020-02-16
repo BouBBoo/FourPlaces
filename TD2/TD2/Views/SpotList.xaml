@@ -19,7 +19,7 @@
         <ScrollView>
             <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75">
                 <ListView.Behaviors>
-                    <local2:EventToCommandBehavior EventName="ItemSelected" Command="{Binding goToDetail}" CommandParameter="{Binding Id}" Converter="{StaticResource SelectedItemConverter}" />
+                    <local2:EventToCommandBehavior EventName="ItemSelected" Command="{Binding goToDetail}" Converter="{StaticResource SelectedItemConverter}" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
