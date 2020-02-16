@@ -1,8 +1,12 @@
 ﻿using Storm.Mvvm;
 using Storm.Mvvm.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Input;
 using TD2.Items;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace TD2.ViewModels
 {
@@ -60,11 +64,19 @@ namespace TD2.ViewModels
             set => SetProperty(ref _Comments, value);
         }
 
+        public ICommand openMaps { get; }
+
         public PlaceViewModel()
         {
+            openMaps = new Command(goToMaps);
         }
 
-        
+        private async void goToMaps(object obj)
+        {
+            Location location = new Location(Latitude, Longitude);
+            MapLaunchOptions options = new MapLaunchOptions { Name = Title};
+            await Map.OpenAsync(location, options);
+        }
 
         public override void Initialize(Dictionary<string, object> navigationParameters)
         {

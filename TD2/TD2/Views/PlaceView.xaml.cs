@@ -17,5 +17,6 @@ namespace TD2.Views
             BindingContext = new PlaceViewModel();
             InitializeComponent();
         }
+
     }
 }
