@@ -76,7 +76,8 @@ namespace TD2.ViewModels
                         Email = Email,
                         FirstName = FirstName,
                         LastName = LastName,
-                        Password = Password
+                        Password = Password,
+
                     };
                     ApiClient apiClient = new ApiClient();
 

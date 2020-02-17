@@ -17,6 +17,7 @@
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="add" Order="Primary"  Text="+" Priority="0" Command="{Binding goToAddNewPlace}"/>
+        <ToolbarItem x:Name="profile" Order="Primary"  Text="*" Priority="0" Command="{Binding goToProfile}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>

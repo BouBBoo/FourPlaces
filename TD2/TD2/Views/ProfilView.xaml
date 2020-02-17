@@ -4,33 +4,42 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:TD2.Converter"
+             xmlns:viewModels="clr-namespace:TD2.ViewModels"
              mc:Ignorable="d"
              x:Class="TD2.Views.ProfilView">
     <ContentPage.Resources>
         <local:IdToImageConverter x:Key="IdToImageConverter"/>
     </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewModels:ProfileViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="add" Order="Primary"  Text="+" Priority="0" Command="{Binding edit}"/>
+        <ToolbarItem x:Name="add" Order="Primary"  Text="*" Priority="0" Command="{Binding edit}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Image Source="{Binding ImageId, Converter={StaticResource IdToImageConverter}}"/>
             <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
                 <Label Text="Email :" VerticalOptions="Center" HorizontalOptions="Start"/>
-                <Entry Text="{Binding Email}" IsEnabled="False" VerticalOptions="Center"/>
+                <Entry x:Name="EmailEntry" Text="{Binding Email}" IsEnabled="False" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
                 <Label Text="Prénom :" VerticalOptions="Center" HorizontalOptions="Start"/>
-                <Entry Text="{Binding FirstName}" IsEnabled="False" VerticalOptions="Center"/>
+                <Entry x:Name="FirstNameEntry" Text="{Binding FirstName}" IsEnabled="False" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
                 <Label Text="Nom :" VerticalOptions="Center" HorizontalOptions="Start"/>
-                <Entry Text="{Binding LastName}" IsEnabled="False" VerticalOptions="Center"/>
+                <Entry x:Name="LastNameEntry" Text="{Binding LastName}" IsEnabled="False" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+            <StackLayout x:Name="PasswordEntry" Orientation="Horizontal" Padding="5,5,5,5" IsVisible="False">
                 <Label Text="Password :" VerticalOptions="Center" HorizontalOptions="Start"/>
-                <Entry Text="{Binding LastName}" IsEnabled="False" IsPassword="True" VerticalOptions="Center"/>
+                <Entry  Text="{Binding Password}" IsPassword="True" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
+            <StackLayout x:Name="NewPasswordEntry" Orientation="Horizontal" Padding="5,5,5,5" IsVisible="False">
+                <Label Text="New Password :" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Entry  Text="{Binding NewPassword}" IsPassword="True" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+            </StackLayout>
+            <Button x:Name="Button" Text="Validate Change" IsVisible="False" Command="{Binding update}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
