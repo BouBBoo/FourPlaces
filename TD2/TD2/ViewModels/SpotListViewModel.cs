@@ -21,6 +21,7 @@ namespace TD2.ViewModels
         public ICommand goToDetail { get; }
         public ICommand goToAddNewPlace { get; }
         public ICommand goToProfile { get; }
+        public ICommand disconnect { get; }
         private ObservableCollection<PlaceItemSummary> _listPlaces;
         public ObservableCollection<PlaceItemSummary> ListPlaces
         {
@@ -42,8 +43,20 @@ namespace TD2.ViewModels
             goToDetail = new Command<int>(GoToDetailPage);
             goToAddNewPlace = new Command(GoToAddNewPlace);
             goToProfile = new Command(GoToProfile);
+            disconnect = new Command(Disconnect);
             GetPlaces();
         }
+
+        public async void Disconnect()
+        {
+            bool answer=  await Application.Current.MainPage.DisplayAlert("Disconnect?", "Do you really want to leave?", "Yes", "No");
+            if (answer)
+            {
+                Application.Current.Properties["token"] = null;
+                await DependencyService.Get<INavigationService>().PopAsync();
+            }
+        }
+
 
         private async void GoToProfile()
         {

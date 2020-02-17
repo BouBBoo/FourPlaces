@@ -7,7 +7,7 @@
              x:Class="TD2.Views.AddCommentView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Commentaire" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label TextColor="Black" Text="Commentaire" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Entry Text="{Binding CommentText}" HeightRequest="500" HorizontalOptions="FillAndExpand"/>
             <Button Text="Valider" Command="{Binding submitComment}" HorizontalOptions="Center"/>
         </StackLayout>

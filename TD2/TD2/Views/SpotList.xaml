@@ -8,9 +8,6 @@
              xmlns:local2="clr-namespace:TD2.Behaviors"
              mc:Ignorable="d"
              x:Class="TD2.SpotList">
-    <ContentPage.BindingContext>
-        <local:SpotListViewModel />
-    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <local1:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
         <local1:IdToImageConverter x:Key="IdToImageConverter"/>
@@ -18,19 +15,20 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="add" Order="Primary"  IconImageSource="plus.png" Priority="0" Command="{Binding goToAddNewPlace}"/>
         <ToolbarItem x:Name="profile" Order="Primary"  IconImageSource="edit.png" Priority="0" Command="{Binding goToProfile}"/>
+        <ToolbarItem x:Name="disconnect" Order="Primary" IconImageSource="disconnect.png" Priority="0" Command="{Binding disconnect}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
-            <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75">
+            <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75" HasUnevenRows="True">
                 <ListView.Behaviors>
                     <local2:EventToCommandBehavior EventName="ItemSelected" Command="{Binding goToDetail}" Converter="{StaticResource SelectedItemConverter}" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="250">
+                        <ViewCell Height="100">
                             <StackLayout Margin="10,10,10,10" Orientation="Horizontal">
-                                <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-                                <Image Source="{Binding ImageId, Converter={StaticResource IdToImageConverter}}" HeightRequest="100" HorizontalOptions="EndAndExpand"/>
+                                <Label TextColor="Black" Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                                <Image Source="{Binding ImageId, Converter={StaticResource IdToImageConverter}}" Scale="1.1" HeightRequest="100" HorizontalOptions="EndAndExpand"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

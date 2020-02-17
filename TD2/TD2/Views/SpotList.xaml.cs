@@ -12,5 +12,11 @@ namespace TD2
             BindingContext = new SpotListViewModel();
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            ((SpotListViewModel)BindingContext).Disconnect();
+            return true;
+        }
     }
 }

@@ -89,7 +89,8 @@ namespace TD2.ViewModels
             if(userItem != null && addCommentView != null)
             {
                 string str = ((AddCommentViewModel)addCommentView.BindingContext).CommentText;
-                if(str != null)
+                bool new_comment = ((AddCommentViewModel)addCommentView.BindingContext).IsSubmitted;
+                if (str != null && new_comment)
                 {
                     CommentItem commentItem = new CommentItem();
                     commentItem.Author = userItem;

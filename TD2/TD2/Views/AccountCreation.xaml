@@ -6,14 +6,14 @@
              mc:Ignorable="d"
              x:Class="TD2.AccountCreation">
     <ContentPage.Content>
-        <StackLayout Margin="5,5,5,5">
+        <StackLayout Margin="5,5,5,5" VerticalOptions="Center">
             <Label Text="Email:"/>
             <Entry Text="{Binding Email}" x:Name="email" Placeholder="example@mail.com"/>
             <Label Text="Firstname:"/>
             <Entry Text="{Binding FirstName}" x:Name="firstname" Placeholder="Your firstname"/>
             <Label Text="Lastname:"/>
             <Entry Text="{Binding LastName}" x:Name="lastname" Placeholder="Your lastname"/>
-            <Label Text="Password"/>
+            <Label Text="Password: "/>
             <Entry Text="{Binding Password}" x:Name="password" IsPassword="True" Placeholder="Password"/>
             <Button Text="Create Account" Command="{Binding submit}"/>
         </StackLayout>

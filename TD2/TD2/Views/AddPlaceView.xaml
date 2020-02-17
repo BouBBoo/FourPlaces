@@ -7,22 +7,28 @@
              x:Class="TD2.Views.AddPlaceView">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Text="{Binding Title}" Placeholder="Name of the place"/>
-            <Entry Text="{Binding Description}" Placeholder="Description of the place"/>
+            
             <Image Source="{Binding Image.Source}" HeightRequest="200"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <StackLayout Padding="5,5,5,5" Orientation="Horizontal" HorizontalOptions="Center">
                 <Button Text="Take photo" Command="{Binding takePicture}"/>
                 <Button Text="Load photo" Command="{Binding loadPicture}"/>
             </StackLayout>
-            
+            <StackLayout Padding="5,5,5,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="Title" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Entry Text="{Binding Title}" Placeholder="Name of the place" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Padding="5,5,5,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="Description" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Editor HeightRequest="100" Text="{Binding Description}" Placeholder="Description of the place" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
-                    <Label Text="Latitude" VerticalOptions="Center"/>
-                    <Entry Text="{Binding Latitude}" Placeholder="Latitude" HorizontalOptions="StartAndExpand"/>
-                    <Label Text="Longitude" VerticalOptions="Center"/>
-                    <Entry Text="{Binding Longitude}" Placeholder="Longitude" HorizontalOptions="EndAndExpand"/>
+                    <Label Text="Latitude" VerticalOptions="Center" WidthRequest="100"/>
+                    <Entry Text="{Binding Latitude}" Placeholder="Latitude" HorizontalOptions="StartAndExpand" WidthRequest="125"/>
+                    <Label Text="Longitude" VerticalOptions="Center" WidthRequest="100"/>
+                    <Entry Text="{Binding Longitude}" Placeholder="Longitude" HorizontalOptions="EndAndExpand" WidthRequest="125"/>
                 </StackLayout>
-                <Button Text="Use your Coordinate" Command="{Binding getCoordinate}"/>
+                <Button x:Name="locationButton"  Text="Use your Coordinate" Command="{Binding getCoordinate}"/>
             </StackLayout>
             <Button Text="Validate" Command="{Binding submit}"/>
         </StackLayout>

@@ -63,8 +63,11 @@ namespace TD2
                     Response<LoginResult> response = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse);
                     if (response.IsSuccess)
                     {
+                        
                         Application.Current.Properties["token"] = response.Data;
                         await DependencyService.Get<INavigationService>().PushAsync(new SpotList());
+                        LOGIN = "";
+                        PASSWORD = "";
                     }
                     else
                     {

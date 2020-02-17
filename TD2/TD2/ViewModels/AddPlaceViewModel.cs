@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TD2.API;
 using TD2.Items;
+using TD2.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -88,6 +89,8 @@ namespace TD2.ViewModels
             }
         }
 
+        private AddPlaceView addPlaceView { get; set; }
+
         public ICommand submit { get; }
         public ICommand getCoordinate { get; }
         public ICommand takePicture { get; }
@@ -95,8 +98,9 @@ namespace TD2.ViewModels
 
 
 
-        public AddPlaceViewModel()
+        public AddPlaceViewModel(AddPlaceView addPlaceView)
         {
+            this.addPlaceView = addPlaceView;
             submit = new Command(Submit);
             getCoordinate = new Command(GetCoordinate);
             takePicture = new Command(OpenCamera);
@@ -109,7 +113,7 @@ namespace TD2.ViewModels
             await CrossMedia.Current.Initialize();
             if(!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
-                await Application.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                await Application.Current.MainPage.DisplayAlert("No Camera", "No camera available.", "OK");
                 return;
             }
 
@@ -130,7 +134,7 @@ namespace TD2.ViewModels
             await CrossMedia.Current.Initialize();
             if(!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
-                await Application.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                await Application.Current.MainPage.DisplayAlert("No Camera", "No camera available.", "OK");
                 return;
             }
 
@@ -161,14 +165,18 @@ namespace TD2.ViewModels
             catch (FeatureNotSupportedException fnsEx)
             {
                 Debug.WriteLine(fnsEx.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", "Your phone doesn't support location.", "OK");
+                ((Button)addPlaceView.FindByName("locationButton")).IsVisible = false;
             }
             catch (FeatureNotEnabledException fneEx)
             {
                 Debug.WriteLine(fneEx.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", "Your location is not enabled.", "OK");
             }
             catch (PermissionException pEx)
             {
                 Debug.WriteLine(pEx.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", "The app doesn't have the permission to access location.", "OK");
             }
             catch (Exception ex)
             {

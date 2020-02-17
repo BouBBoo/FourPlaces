@@ -26,6 +26,7 @@ namespace TD2.ViewModels
                 if(SetProperty(ref _text, value) && value != null) { }
             }
         }
+        public bool IsSubmitted { get; set; }
 
         [NavigationParameter("PlaceId")]
         public int PlaceId { get; set; }
@@ -34,6 +35,7 @@ namespace TD2.ViewModels
         public AddCommentViewModel()
         {
             submitComment = new Command(SubmitComment);
+            IsSubmitted = false;
         }
 
         private async void SubmitComment()
@@ -50,10 +52,13 @@ namespace TD2.ViewModels
             Response<UserItem> response = await apiClient.ReadFromResponse<Response<UserItem>>(httpResponse);
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Erreur", response.ErrorMessage, "OK");
+                if (response.ErrorMessage.Contains("PARAMETERS")){
+                    await Application.Current.MainPage.DisplayAlert("Erreur", "There is no comment", "OK");
+                } 
             }
             else 
             {
+                IsSubmitted = true;
                 await DependencyService.Get<INavigationService>().PopAsync();
             }
 

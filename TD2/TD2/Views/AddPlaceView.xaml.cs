@@ -10,7 +10,7 @@ namespace TD2.Views
         public AddPlaceView()
         {
             InitializeComponent();
-            BindingContext = new AddPlaceViewModel();
+            BindingContext = new AddPlaceViewModel(this);
         }
     }
 }
