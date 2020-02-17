@@ -108,7 +108,7 @@ namespace TD2.ViewModels
         {
             await CrossMedia.Current.Initialize();
             if(!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-    {
+            {
                 await Application.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
                 return;
             }
@@ -129,7 +129,7 @@ namespace TD2.ViewModels
         {
             await CrossMedia.Current.Initialize();
             if(!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-    {
+            {
                 await Application.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
                 return;
             }

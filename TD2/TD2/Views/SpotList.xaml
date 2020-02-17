@@ -16,8 +16,8 @@
         <local1:IdToImageConverter x:Key="IdToImageConverter"/>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="add" Order="Primary"  Text="+" Priority="0" Command="{Binding goToAddNewPlace}"/>
-        <ToolbarItem x:Name="profile" Order="Primary"  Text="*" Priority="0" Command="{Binding goToProfile}"/>
+        <ToolbarItem x:Name="add" Order="Primary"  IconImageSource="plus.png" Priority="0" Command="{Binding goToAddNewPlace}"/>
+        <ToolbarItem x:Name="profile" Order="Primary"  IconImageSource="edit.png" Priority="0" Command="{Binding goToProfile}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>

@@ -99,7 +99,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\edit.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TD2\TD2.csproj">
       <Project>{6A5C457A-899E-4598-AA0B-DC1E6D8080CB}</Project>

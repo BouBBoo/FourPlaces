@@ -14,6 +14,9 @@
         <local1:IdToImageConverter x:Key="IdToImageConverter"/>
         <local1:UserItemToString x:Key="UserItemToString"/>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="add" Order="Primary"  IconImageSource="plus.png" Priority="0" Command="{Binding createComment}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <StackLayout Orientation="Vertical" Padding="10,10,10,10">
@@ -45,14 +48,6 @@
                     </ListView>
                 </ScrollView>
             </StackLayout>
-            <ImageButton
-                Source="plus.png"
-                Command="{Binding createComment}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
-                HeightRequest="75"
-                BackgroundColor="Transparent"
-                WidthRequest="75" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

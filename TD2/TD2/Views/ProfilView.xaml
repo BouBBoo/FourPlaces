@@ -14,11 +14,14 @@
         <viewModels:ProfileViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="add" Order="Primary"  Text="*" Priority="0" Command="{Binding edit}"/>
+        <ToolbarItem x:Name="add" Order="Primary"  IconImageSource="edit.png" Priority="0" Command="{Binding edit}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Image Source="{Binding ImageId, Converter={StaticResource IdToImageConverter}}"/>
+            <StackLayout Orientation="Vertical" Padding="5,5,5,5">
+                <Image Source="{Binding ImageId, Converter={StaticResource IdToImageConverter}}" HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Button x:Name="ButtonImage" Text="Change image" IsVisible="False" Command="{Binding loadImage}" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
                 <Label Text="Email :" VerticalOptions="Center" HorizontalOptions="Start"/>
                 <Entry x:Name="EmailEntry" Text="{Binding Email}" IsEnabled="False" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>

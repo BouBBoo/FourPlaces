@@ -70,7 +70,7 @@ namespace TD2.ViewModels
             set => SetProperty(ref _Comments, value);
         }
 
-        private AddCommentView addCommentView;
+        private AddCommentView addCommentView { get; set; }
 
         public ICommand openMaps { get; }
         public ICommand createComment { get; }
@@ -80,6 +80,24 @@ namespace TD2.ViewModels
             _Comments = new ObservableCollection<CommentItem>();
             openMaps = new Command(goToMaps);
             createComment = new Command(CreateComment);
+            DependencyService.Get<INavigationService>().ViewPopped += PlaceViewModel_ViewPopped;
+        }
+
+        private async void PlaceViewModel_ViewPopped(object sender, PagePopEventArgs e)
+        {
+            UserItem userItem = await getUserItem();
+            if(userItem != null && addCommentView != null)
+            {
+                string str = ((AddCommentViewModel)addCommentView.BindingContext).CommentText;
+                if(str != null)
+                {
+                    CommentItem commentItem = new CommentItem();
+                    commentItem.Author = userItem;
+                    commentItem.Date = DateTime.Now;
+                    commentItem.Text = ((AddCommentViewModel)addCommentView.BindingContext).CommentText;
+                    Comments.Insert(0, commentItem);
+                }
+            }
         }
 
         private async Task<UserItem> getUserItem()
