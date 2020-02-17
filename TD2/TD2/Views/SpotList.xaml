@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:TD2.ViewModels"
              xmlns:local1="clr-namespace:TD2.Converter"
              xmlns:local2="clr-namespace:TD2.Behaviors"
              mc:Ignorable="d"
@@ -14,12 +13,12 @@
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="add" Order="Primary"  IconImageSource="plus.png" Priority="0" Command="{Binding goToAddNewPlace}"/>
-        <ToolbarItem x:Name="profile" Order="Primary"  IconImageSource="edit.png" Priority="0" Command="{Binding goToProfile}"/>
+        <ToolbarItem x:Name="profile" Order="Primary"  IconImageSource="icon.png" Priority="0" Command="{Binding goToProfile}"/>
         <ToolbarItem x:Name="disconnect" Order="Primary" IconImageSource="disconnect.png" Priority="0" Command="{Binding disconnect}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
-            <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75" HasUnevenRows="True">
+            <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75" HasUnevenRows="True" IsPullToRefreshEnabled="true">
                 <ListView.Behaviors>
                     <local2:EventToCommandBehavior EventName="ItemSelected" Command="{Binding goToDetail}" Converter="{StaticResource SelectedItemConverter}" />
                 </ListView.Behaviors>
