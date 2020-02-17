@@ -153,6 +153,7 @@ namespace TD2.ViewModels
         }
 
         public ICommand edit { get; }
+        
 
         private void Edit()
         {
@@ -164,10 +165,13 @@ namespace TD2.ViewModels
             ((Button)profileView.FindByName("Button")).IsVisible = !((Button)profileView.FindByName("Button")).IsVisible;
         }
 
+       
+
         public ProfileViewModel()
         {
             update = new Command(Update);
             edit = new Command(Edit);
+            
         }
 
         public override void Initialize(Dictionary<string, object> navigationParameters)

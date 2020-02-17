@@ -1,10 +1,16 @@
 ﻿using Storm.Mvvm;
 using Storm.Mvvm.Navigation;
+using Storm.Mvvm.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using TD2.API;
 using TD2.Items;
+using TD2.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -57,18 +63,58 @@ namespace TD2.ViewModels
             set => SetProperty(ref _Longitude, value);
         }
 
-        private List<CommentItem> _Comments;
-        public List<CommentItem> Comments
+        private ObservableCollection<CommentItem> _Comments;
+        public ObservableCollection<CommentItem> Comments
         {
             get => _Comments;
             set => SetProperty(ref _Comments, value);
         }
 
+        private AddCommentView addCommentView;
+
         public ICommand openMaps { get; }
+        public ICommand createComment { get; }
 
         public PlaceViewModel()
         {
+            _Comments = new ObservableCollection<CommentItem>();
             openMaps = new Command(goToMaps);
+            createComment = new Command(CreateComment);
+        }
+
+        private async Task<UserItem> getUserItem()
+        {
+            try
+            {
+                ApiClient apiClient = new ApiClient();
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "https://td-api.julienmialon.com/me");
+                string token = ((LoginResult)Application.Current.Properties["token"]).AccessToken;
+                request.Headers.Add("Authorization", $"Bearer {token}");
+                HttpResponseMessage httpResponse = await client.SendAsync(request);
+                Response<UserItem> response = await apiClient.ReadFromResponse<Response<UserItem>>(httpResponse);
+                if (response.IsSuccess)
+                {
+                    return new UserItem(){ LastName = response.Data.LastName,
+                            Email = response.Data.Email,
+                            FirstName = response.Data.FirstName,
+                            Id = response.Data.Id,
+                            ImageId = response.Data.ImageId == null ? 1 : response.Data.ImageId};
+                }
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Erreur", e.Message, "ok");
+            }
+            return null;
+        }
+
+        private async void CreateComment()
+        {
+            addCommentView = new AddCommentView();
+            await DependencyService.Get<INavigationService>().PushAsync(addCommentView, new Dictionary<string, object> {
+                {"PlaceId", ID }
+            });
         }
 
         private async void goToMaps(object obj)
@@ -89,7 +135,7 @@ namespace TD2.ViewModels
                 ImageID = placeItem.ImageId;
                 Longitude = placeItem.Longitude;
                 Latitude = placeItem.Latitude;
-                Comments = placeItem.Comments;
+                Comments = new ObservableCollection<CommentItem>(placeItem.Comments);
             }
             else
             {

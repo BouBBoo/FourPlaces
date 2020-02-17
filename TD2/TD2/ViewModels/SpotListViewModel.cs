@@ -75,7 +75,6 @@ namespace TD2.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Erreur", e.Message, "ok");
             }
-            
         }
 
         private async void GoToAddNewPlace(object obj)
