@@ -110,11 +110,19 @@ namespace TD2.ViewModels
                         if (httpResponse1.IsSuccessStatusCode)
                         {
                             Edit();
-                            await Application.Current.MainPage.DisplayAlert("Mise à jour réussie", "La mise à jour a été effectué avec succès.", "OK");
-                        }
-                        else
-                        {
-                            await Application.Current.MainPage.DisplayAlert("Erreur lors de la mise à jour", "Mise à jour mot de passe non effectué.", "OK");
+                            RefreshRequest refreshRequest = new RefreshRequest();
+                            refreshRequest.RefreshToken = ((LoginResult)Application.Current.Properties["token"]).RefreshToken;
+                            HttpResponseMessage httpResponse2 = await apiClient.Execute(new HttpMethod("POST"), "https://td-api.julienmialon.com/auth/refresh", refreshRequest);
+                            Response<LoginResult> response1 = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse);
+                            if (response1.IsSuccess)
+                            {
+                                Application.Current.Properties["token"] = response1.Data;
+                                await Application.Current.MainPage.DisplayAlert("Mise à jour réussie", "La mise à jour a été effectué avec succès.", "OK");
+                            }
+                            else
+                            {
+                                await Application.Current.MainPage.DisplayAlert("Erreur lors de la mise à jour", "Mise à jour mot de passe non effectué.", "OK");
+                            }
                         }
                     }
                     else
@@ -139,7 +147,19 @@ namespace TD2.ViewModels
                     if (httpResponse1.IsSuccessStatusCode)
                     {
                         Edit();
-                        await Application.Current.MainPage.DisplayAlert("Mise à jour réussie", "La mise à jour a été effectué avec succès.", "OK");
+                        RefreshRequest refreshRequest = new RefreshRequest();
+                        refreshRequest.RefreshToken = ((LoginResult)Application.Current.Properties["token"]).RefreshToken;
+                        HttpResponseMessage httpResponse2 = await apiClient.Execute(new HttpMethod("POST"), "https://td-api.julienmialon.com/auth/refresh", refreshRequest);
+                        Response<LoginResult> response1 = await apiClient.ReadFromResponse<Response<LoginResult>>(httpResponse2);
+                        if (response1.IsSuccess)
+                        {
+                            Application.Current.Properties["token"] = response1.Data;
+                            await Application.Current.MainPage.DisplayAlert("Mise à jour réussie", "La mise à jour a été effectué avec succès.", "OK");
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Erreur lors de la mise à jour", "Mise à jour mot de passe non effectué.", "OK");
+                        }
                     }
                     else
                     {

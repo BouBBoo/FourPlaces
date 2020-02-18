@@ -1,12 +1,10 @@
 ﻿using Storm.Mvvm;
 using Storm.Mvvm.Services;
 using System;
-using System.Threading.Tasks;
 using System.Net.Http;
 using System.Windows.Input;
 using TD2.API;
 using Xamarin.Forms;
-using System.Diagnostics;
 
 namespace TD2
 {
@@ -52,8 +50,8 @@ namespace TD2
 
         private async void GoToLogin()
         {
-            if(LOGIN == " " || LOGIN == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Login non renseigné", "ok"); }
-            else if (PASSWORD == " " || PASSWORD == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Mot de passe non renseigné", "ok"); }
+            if(LOGIN == " " || LOGIN == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Login not typed", "ok"); }
+            else if (PASSWORD == " " || PASSWORD == null) { await Application.Current.MainPage.DisplayAlert("Erreur", "Password not typed", "ok"); }
             else
             {
                 try
@@ -71,7 +69,14 @@ namespace TD2
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert("Erreur", response.ErrorMessage, "ok");
+                        if (response.ErrorMessage.Contains("Credentials"))
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Erreur", "Wrong login or password", "ok");
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Erreur", response.ErrorMessage, "ok");
+                        }
                     }
                 }
                 catch (Exception e)

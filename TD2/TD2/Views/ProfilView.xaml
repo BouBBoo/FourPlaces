@@ -35,7 +35,7 @@
                 <Entry x:Name="LastNameEntry" Text="{Binding LastName}" IsEnabled="False" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
             <StackLayout x:Name="PasswordEntry" Orientation="Horizontal" Padding="5,5,5,5" IsVisible="False">
-                <Label TextColor="Black" Text="Password :" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Label TextColor="Black" Text=" Old Password :" VerticalOptions="Center" HorizontalOptions="Start"/>
                 <Entry  Text="{Binding Password}" IsPassword="True" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </StackLayout>
             <StackLayout x:Name="NewPasswordEntry" Orientation="Horizontal" Padding="5,5,5,5" IsVisible="False">
