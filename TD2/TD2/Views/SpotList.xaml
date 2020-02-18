@@ -17,8 +17,7 @@
         <ToolbarItem x:Name="disconnect" Order="Primary" IconImageSource="disconnect.png" Priority="0" Command="{Binding disconnect}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75" HasUnevenRows="True" IsPullToRefreshEnabled="true">
+        <ListView x:Name="List_Places" ItemsSource="{Binding ListPlaces}" RowHeight="75" HasUnevenRows="True" IsPullToRefreshEnabled="true">
                 <ListView.Behaviors>
                     <local2:EventToCommandBehavior EventName="ItemSelected" Command="{Binding goToDetail}" Converter="{StaticResource SelectedItemConverter}" />
                 </ListView.Behaviors>
@@ -33,6 +32,5 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

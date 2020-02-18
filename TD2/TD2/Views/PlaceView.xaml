@@ -29,24 +29,22 @@
                 <Button Text="Locate the place" Command="{Binding openMaps}"/>
             </StackLayout>
             <StackLayout Padding="10,10,10,10">
-                <ScrollView HeightRequest="250">
-                    <ListView ItemsSource="{Binding Comments}" HasUnevenRows="True">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell Height="100">
-                                    <StackLayout Margin="5,5,5,5">
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding Author, Converter={StaticResource UserItemToString}}"/>
-                                            <Label Text="le"/>
-                                            <Label Text="{Binding Date}"/>
-                                        </StackLayout>
-                                        <Label Text="{Binding Text}"/>
+                <ListView ItemsSource="{Binding Comments}" HasUnevenRows="True" HeightRequest="250">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="100">
+                                <StackLayout Margin="5,5,5,5">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Author, Converter={StaticResource UserItemToString}}"/>
+                                        <Label Text="le"/>
+                                        <Label Text="{Binding Date}"/>
                                     </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </ScrollView>
+                                    <Label Text="{Binding Text}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
